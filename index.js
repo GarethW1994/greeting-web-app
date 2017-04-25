@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 var users = [];
 var greeting = "";
 
-app.get('/home', function(req, res) {
+app.get('/', function(req, res) {
   res.render('index', homeData.content);
 });
 

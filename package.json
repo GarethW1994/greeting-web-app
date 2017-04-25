@@ -1,0 +1,23 @@
+{
+  "name": "template-display-express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha"
+  },
+	"keywords": [
+    "example",
+    "heroku"
+  ],
+  "author": "Gareth",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "express-handlebars": "^3.0.0"
+  },
+	 "engines": {
+    "node": "6.10.2"
+  }
+}

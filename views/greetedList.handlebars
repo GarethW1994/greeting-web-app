@@ -1,0 +1,12 @@
+
+<h4 id="greetListHead">List Of Greeted Users</h4>
+<div class = 'form'>
+<p>{{error}}</p>
+    <ul>        
+        {{#each output}}
+
+        <li><a href="/counter/{{this}}">{{this}}</a></li>
+
+        {{/each}}
+    </ul>
+</div>

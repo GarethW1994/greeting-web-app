@@ -35,7 +35,7 @@ var users = [];
 var greeting = "";
 
 
-app.get('/', function(req, res) {
+app.get('/main', function(req, res) {
   res.render('index', homeData.content);
 });
 

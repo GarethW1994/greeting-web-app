@@ -22,6 +22,9 @@ app.use(express.static('views'));
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
+//set port
+app.set('port', (process.env.PORT || 3000));
+
 //init body parser
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -30,6 +33,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 var users = [];
 var greeting = "";
+
 
 app.get('/', function(req, res) {
   res.render('index', homeData.content);

@@ -29,6 +29,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 
+//linking to mongo
+const mongoURL = process.env.MONGO_DB_URL || "'mongodb://localhost/test'";
+//
+
 var users = [];
 var greeting = "";
 

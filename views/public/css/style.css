@@ -38,6 +38,7 @@ h1 {
     margin-bottom: 5px;
     margin-top: 80px;
 }
+
 .homeContainer {
     height: 30px;
     width: 200px;
@@ -190,6 +191,15 @@ input[type=radio]:checked + label{
   40%, 60% {
     transform: translate3d(4px, 0, 0);
   }
+}
+
+@media (max-width: 600px) {
+	.form > ul {
+		position: relative;
+		margin: 0px 0;
+		width: 300px;
+		height: 300px;
+	}
 }
 
 .greetIMG {

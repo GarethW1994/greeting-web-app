@@ -9,7 +9,6 @@ var homeData = require('./home.json');
 var greet = require('./views/public/javascript/greet');
 var language = require('./views/public/javascript/language');
 
-var hostname = "127.0.0.1";
 var port = process.env.PORT || 4000;
 
 //express
@@ -76,6 +75,6 @@ app.get('/counter/:name', function(req, res, next){
     res.render('counter', {userName: name, counter: greetNum})
 });
 
-app.listen(port, hostname, function() {
-   console.log('frontend server running at http://' + hostname + ':' + port + '/'); 
+app.listen(port, function() {
+   console.log('frontend server running at http://greeting-web-app:'+ port + '/'); 
 });

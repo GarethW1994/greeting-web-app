@@ -9,6 +9,8 @@ var homeData = require('./home.json');
 var greet = require('./views/public/javascript/greet');
 var language = require('./views/public/javascript/language');
 
+var hostname = "127.0.0.1";
+var port = process.env.PORT || 4000;
 
 //express
 var app = express();
@@ -22,9 +24,6 @@ app.use(express.static('views'));
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
-//set port
-app.set('port', (process.env.PORT || 3000));
-
 //init body parser
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -35,7 +34,7 @@ var users = [];
 var greeting = "";
 
 
-app.get('/main', function(req, res) {
+app.get('/', function(req, res) {
   res.render('index', homeData.content);
 });
 
@@ -77,6 +76,6 @@ app.get('/counter/:name', function(req, res, next){
     res.render('counter', {userName: name, counter: greetNum})
 });
 
-app.listen(3000, function() {
-   console.log('frontend server running at ::3000'); 
+app.listen(port, hostname, function() {
+   console.log('frontend server running at http://' + hostname + ':' + port + '/'); 
 });

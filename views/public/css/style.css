@@ -1,6 +1,7 @@
 * {
       font-family: 'Nunito', 'sans-serif';
 }
+
 html, body {
     margin: 0;
     padding: 0;
@@ -10,8 +11,8 @@ html, body {
 
 .headContainer {
     background-color: black;
-    width: calc(100% - 200px);
-    height: 43px;
+    width: 100%;
+    height: 100px;
     margin: 0;
     padding: 0;
     display: flex;
@@ -24,20 +25,10 @@ h1 {
     color: #fff;
     margin: 0;
     padding: 0;
+	width: 50%;
+	text-align: center;
 }
 
-.sidebar {
-    width: 200px;
-    height: 100%;
-    float: left;
-    background-color: #0f0f0f;
-}
-
-
-.greetedContainer, .homeContainer {
-    margin-bottom: 5px;
-    margin-top: 80px;
-}
 
 .homeContainer {
     height: 30px;
@@ -60,27 +51,62 @@ h1 {
     background-color: #e52a25;
 }
 
-
-.homeContainer:hover, .greetedContainer:hover {
-    background-color: #191919;
-}
-
 #greeted-anchor, #home-anchor {
-    text-decoration: none;
-    color: #fff;
-    width: 200px;
-    text-align: center;
+   color: #fff;
+	margin: 0 10px;
+	text-decoration: none;
 }
 
+#greeted-anchor:hover, #home-anchor:hover {
+	color: darkred;
+	text-transform: uppercase;
+	transition: 400ms ease-in-out;
+}
 
-.form {
-    float: left;
-    width: 80%;
-    height: 50%;
+.formContainer {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.formContainer .form {
+    width: 55%;
+    height: 65%;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 10px;
+	box-shadow: .5px .5px .5px .5px grey;
+}
+
+.formGreetingContainer {
+	width: 100%;
+	height: 80%;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.formGreeting {
+    width: 55%;
+	height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -100px 0;
+	padding: 0;
+	position: absolute;
+}
+
+.formContainer .form > h4 {
+	position: absolute;
+	margin: -140px 0;
+	padding: 0;
 }
 
 .input, .radios, .button {
@@ -92,11 +118,6 @@ h1 {
     height: 50px;
     transition: 50ms ease-in;
 }
-
-.input:hover, .radios:hover {
-    box-shadow: .9px .5px .5px .5px steelblue;
-}
-
 
 input[type=radio]:checked + label{
   color: 	#214d89;
@@ -142,6 +163,10 @@ input[type=radio]:checked + label{
     font-size: 20px;
 }
 
+.form {
+	height: 60%;
+	width: 100%;
+}
 .form > ul {
 	position: relative;
 	margin: 0px 0;
@@ -158,6 +183,7 @@ input[type=radio]:checked + label{
 	display: inline-flex;
 	justify-content: center;
 	align-items: center;
+	float: left;
 }
 
 .form>ul >li >a {
@@ -165,7 +191,6 @@ input[type=radio]:checked + label{
 	color: #fff;
 	width: 140px;
 	text-align: center;
-	text-shadow: .5px .5px .5px grey;
 }
 
 .form>ul >li:hover {
@@ -193,12 +218,12 @@ input[type=radio]:checked + label{
   }
 }
 
-@media (max-width: 600px) {
-	.form > ul {
-		position: relative;
-		margin: 0px 0;
-		width: 300px;
+@media (max-width: 690px) {
+	.formContainer .form {
+		margin: 0;
+		width: 100%;
 		height: 300px;
+		box-shadow: .5px .5px .5px .5px grey;
 	}
 }
 
@@ -262,4 +287,38 @@ input[type=radio]:checked + label{
 	text-transform: uppercase;
 }
 
+.footer {
+	 background-color: black;
+    width: 100%;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
+.footer a {
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	text-decoration: none;
+}
+
+ .githubLink {
+	 margin: 0;
+	 padding: 0;
+	width: 40px;
+	height: 40px;
+	background-image: url('../images/github_logo.png');
+	background-size: cover;
+}
+
+
+.footer a p {
+	font-size: 12px;
+	margin: 10px 0;
+	padding: 0;
+	color: #fff;
+	text-decoration: none;
+}

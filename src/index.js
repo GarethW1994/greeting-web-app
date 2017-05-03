@@ -49,9 +49,20 @@ mongoose.connect(mongoURL);
 
 //Create mongoose Schema
 var userSchema = new mongoose.Schema({
-	name: String,
-	language: String
+	name: {
+		type: String,
+		required: true
+	},
+	language: {
+		type: Object
+	},
+	timesGreeted: {
+	type: Number
+	}
 });
+
+userSchema.index({name: 1}, {unique: true});
+
 
 //Creae mongoose model
 var users= mongoose.model('users', userSchema);
@@ -74,10 +85,10 @@ app.get('/', function(req, res) {
 
 
 
+var thisLanguage = "";
 
 app.get('/greetings/:name', function(req, res, next) {
     var thisName = "";
-	var thisLanguage = "";
 	
 	var id = req.params.name;
 	
@@ -85,8 +96,7 @@ app.get('/greetings/:name', function(req, res, next) {
 		if (err) throw err;		
 	
 		thisName = data[0].name;
-		thisLanguage = data[0].language;
-		
+
 		res.render('greeting', {language: thisLanguage, userName: thisName})	
 	}); 
 });
@@ -101,7 +111,7 @@ app.get('/greeted', function(req, res, next) {
 		assert.equal(null, err);
 	
 		for (var i = 0; i < data.length; i++) {
-			names.push(data[i].name)	
+			names.push(data[i].name);	
 		}
 		
 		res.render('./greetedList', {output: names}); 
@@ -114,20 +124,41 @@ app.get('/greeted', function(req, res, next) {
 app.post('/submit', function(req, res, next) {
 	var userName = req.body.name;
 	var radio = req.body.language;
-	
 	var lang = language(radio);
-		
-	var user = users({
-		name: userName,
-		language: lang
-	}).save( function(err) {
-		assert.equal(null, err);
-		
-		console.log('user saved successfully');
-	});
+	var languages = [];
 	
-	res.redirect('/greetings/' + userName);
-});    
+	thisLanguage = lang;
+
+	languages.push(radio);
+	
+
+	users.update({name: userName}, {
+				name: userName,
+				language: languages,
+				timesGreeted: 2
+		
+		}, function(err, updates) {
+			console.log(updates);
+		});
+	
+			var user = users({
+				name: userName,
+				language: JSON.stringify(languages),
+				timesGreeted: 1
+			}).save( function(err) {
+								
+			if (err === null) {
+			console.log('user saved successfully');		
+			} else {
+				if (err) return err;
+				
+				console.log('user already exist in databse!');
+			}
+		});
+		
+			res.redirect('/greetings/' + userName);
+
+	});   
 
 
 

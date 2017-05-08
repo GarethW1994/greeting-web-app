@@ -1,5 +1,6 @@
 {
     "content": {
-    "heading": "Greeting Web-App"   
-    }
+    "heading": "Greeting Web-App",   
+	"numberUsers": 0
+	}
 }

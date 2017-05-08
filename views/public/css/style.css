@@ -163,6 +163,43 @@ input[type=radio]:checked + label{
     font-size: 20px;
 }
 
+.greetedUsers {
+	display: block;
+	align-content: center;
+	justify-content: center;
+}
+
+.greetedNumber {
+	width: 100%;
+	display: flex;
+	align-content: center;
+	justify-content: center;
+}
+
+#greetUsersHead {
+	width: 100%;
+	text-align: center;
+}
+
+#greetedUsers{
+	width: 50px;
+	height: 40px;
+	background-color: springgreen;
+	color: #fff;
+	display: flex;
+	align-content: center;
+	justify-content: center;
+	border-radius: .3em;
+}
+
+#greetedUsers > p {
+	margin: 0;
+	width: 40px;
+	height: 20px;
+	text-align: center;
+	font-size: 30px;
+}
+
 .form {
 	height: 60%;
 	width: 100%;

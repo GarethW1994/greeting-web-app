@@ -70,17 +70,14 @@ var users= mongoose.model('users', userSchema);
 
 
 
-
-
-
-
-
-
-
-
-
 app.get('/', function(req, res) {
-  res.render('index', homeData.content);
+  	users.find({}, function(err, data) {
+		if (err) return err;
+		
+		homeData.content.numberUsers = data.length;
+		
+		res.render('index', homeData.content);
+	});
 });
 
 
@@ -119,8 +116,6 @@ app.get('/greeted', function(req, res, next) {
 });
 
 
-
-
 app.post('/submit', function(req, res, next) {
 	var userName = req.body.name;
 	var radio = req.body.language;
@@ -129,51 +124,43 @@ app.post('/submit', function(req, res, next) {
 	
 	thisLanguage = lang;
 
-	languages.push(radio);
-	
-
-	users.update({name: userName}, {
-				name: userName,
-				language: languages,
-				timesGreeted: 2
-		
-		}, function(err, updates) {
-			console.log(updates);
-		});
-	
 			var user = users({
 				name: userName,
-				language: JSON.stringify(languages),
+				language: radio,
 				timesGreeted: 1
 			}).save( function(err) {
-								
-			if (err === null) {
-			console.log('user saved successfully');		
-			} else {
-				if (err) return err;
+			
+				if (err) {
+					users.find({name: userName}, function(err, data) {
+						if (err) {return err};
+			
+						
+			users.update({name: data[0].name}, {timesGreeted: data[0].timesGreeted + 1}, function(err, result) {
+					if (err) return err;
 				
-				console.log('user already exist in databse!');
-			}
-		});
-		
-			res.redirect('/greetings/' + userName);
+					console.log(result);
+					});
+				});
+			
+			next(err);
+		}
+	});
+	
 
-	});   
+	res.redirect('/greetings/' + userName);
+});   
 
 
 
 
 app.get('/counter/:name', function(req, res, next){
-	
-	////needs to be fixed
-	
     var thisName = req.params.name;
-    
-	var userList = greet.greetUser(thisName);
+  
 	
-    var greetNum = greet.nameList(userList);
-    
-    res.render('counter', {userName: thisName, counter: greetNum})
+	users.find({name: thisName}, function(err, data) {
+   		if (err) {return err};
+		res.render('counter', {userName: data[0].name, counter: data[0].timesGreeted})
+	});
 });
 
 

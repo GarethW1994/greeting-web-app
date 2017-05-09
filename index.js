@@ -153,7 +153,13 @@ app.get('/counter/:name', function(req, res, next){
 });
 
 
-
+app.get('/deleteUsers', function(req, res, next) {
+	users.remove({}, function(err, result) {
+		if (err) return err;
+	});
+	
+	res.redirect('/');
+});
 
 app.listen(port, function() {
    console.log('frontend server running at http://greeting-web-app:'+ port + '/'); 

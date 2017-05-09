@@ -200,6 +200,17 @@ input[type=radio]:checked + label{
 	font-size: 30px;
 }
 
+.clear {
+	margin: 0 10px;
+	width: 80px;
+	background-color: steelblue;
+	border: 1px steelblue;
+}
+.clear a {
+	text-decoration: none;
+	color: #fff;
+}
+
 .form {
 	height: 60%;
 	width: 100%;

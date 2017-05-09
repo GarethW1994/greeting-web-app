@@ -3,12 +3,12 @@
 var express = require('express');
 var exphbs = require('express-handlebars');
 var assert = require('assert');
-var homeData = require('../home.json');
+var homeData = require('./home.json');
 var greeting = "";
 
 //javascript modules
-var greet = require('../views/public/javascript/greet');
-var language = require('../views/public/javascript/language');
+var greet = require('./views/public/javascript/greet');
+var language = require('./views/public/javascript/language');
 
 var port = process.env.PORT || 4000;
 
@@ -59,7 +59,7 @@ var users= mongoose.model('users', userSchema);
 
 
 
-app.get('/home', function(req, res) {
+app.get('/', function(req, res) {
   	users.find({}, function(err, data) {
 		if (err) return err;
 		

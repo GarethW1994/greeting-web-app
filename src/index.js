@@ -29,17 +29,6 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-
-
-
-
-
-
-
-
-
-
-
 //linking to mongo
 var mongoose = require('mongoose');
 
@@ -70,7 +59,7 @@ var users= mongoose.model('users', userSchema);
 
 
 
-app.get('/', function(req, res) {
+app.get('/home', function(req, res) {
   	users.find({}, function(err, data) {
 		if (err) return err;
 		

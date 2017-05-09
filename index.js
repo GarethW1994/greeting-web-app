@@ -56,19 +56,18 @@ userSchema.index({name: 1}, {unique: true});
 //Creae mongoose model
 var users= mongoose.model('users', userSchema);
 
-
-
+var numberUsers = 0;
 
 app.get('/', function(req, res) {
-  	users.find({}, function(err, data) {
+	users.find({}, function(err, data) {
 		if (err) return err;
 		
-		homeData.content.numberUsers = data.length;
-		
-		res.render('index', homeData.content);
+		numberUsers = data.length;
+			
+		res.render('index', {counter : numberUsers});
 	});
+	
 });
-
 
 
 var thisLanguage = "";
@@ -83,11 +82,9 @@ app.get('/greetings/:name', function(req, res, next) {
 	
 		thisName = data[0].name;
 
-		res.render('greeting', {language: thisLanguage, userName: thisName})	
+		res.render('greeting', {language: thisLanguage, userName: thisName, counter: numberUsers});	
 	}); 
 });
-
-
 
 
 app.get('/greeted', function(req, res, next) {
@@ -100,7 +97,11 @@ app.get('/greeted', function(req, res, next) {
 			names.push(data[i].name);	
 		}
 		
-		res.render('./greetedList', {output: names}); 
+		//var counter  = findUsers();
+		
+		
+		//res.render('./greetedList', homeData.content); 
+		res.render('./greetedList', {output: names, counter: numberUsers});
 	});
 });
 

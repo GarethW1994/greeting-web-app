@@ -83,26 +83,6 @@ h1 {
 	box-shadow: .5px .5px .5px .5px grey;
 }
 
-.formGreetingContainer {
-	width: 100%;
-	height: 80%;
-	margin: 0;
-	padding: 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-.formGreeting {
-    width: 55%;
-	height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: -100px 0;
-	padding: 0;
-	position: absolute;
-}
-
 .formContainer .form > h4 {
 	position: absolute;
 	margin: -140px 0;
@@ -214,16 +194,17 @@ input[type=radio]:checked + label{
 .form {
 	height: 60%;
 	width: 100%;
+	overflow-y: scroll;
 }
 .form > ul {
 	position: relative;
-	margin: 0px 0;
+	margin: 10px 0;
 	width: 600px;
 	height: 300px;
 }
 
 .form>ul>li {
-	margin: 20px;
+	margin: 35px 20px;
     width: 150px;
     background: #50bab8;
 	height: 30px;
@@ -273,36 +254,24 @@ input[type=radio]:checked + label{
 		height: 300px;
 		box-shadow: .5px .5px .5px .5px grey;
 	}
+	.backCounter {
+	visibility: hidden;
+}
+
+.backCounter>a {
+	visibility: hidden;
+}
 }
 
 .greetIMG {
-    margin: 150px 0;
-    width: 200px;
-    height: 200px;
+    margin: 0px 0;
+    width: 100px;
+    height: 100px;
     background-image: url('../images/wave.gif');
     background-size: cover;
     position: absolute;
 }
 
-.backContainer {
-	position: absolute;
-	margin: -105px -430px;
-	height: 100px;
-	width: 100px;
-}
-
-.backContainer>span {
-	position: absolute;
-	margin: 0 40px;
-}
-.backButton {
-	width: 20px;
-	height: 20px;
-	background-image: url('../images/back.png');
-	border-radius: .4em;
-	background-size: cover;
-	cursor: pointer;
-}
 
 .counterOutput {
 	color: #fff;

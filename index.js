@@ -53,7 +53,7 @@ var userSchema = new mongoose.Schema({
 userSchema.index({name: 1}, {unique: true});
 
 
-//Creae mongoose model
+//Create mongoose model
 var users= mongoose.model('users', userSchema);
 
 var numberUsers = 0;

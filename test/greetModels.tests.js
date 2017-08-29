@@ -16,7 +16,7 @@ describe('store names', function() {
 
     it('should add new person to MongoDB database', function(done) {
         var newPerson = {
-            name: 'John',
+            name: 'Jonny',
             languages: 'English',
             timesGreeted: 1
         }

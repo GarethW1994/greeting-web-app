@@ -1,33 +1,30 @@
 //require assert
 const assert = require('assert');
-const Model = require('../api/models/shoesModel');
+const model = require('../models');
 //connect to MongoDB
-mongoose.connect("mongodb://127.0.0.1/greeting_users");
+var Models = model("mongodb://127.0.0.1/greeting_users")
 
-describe('store shoes', function() {
+describe('store names', function() {
    //before it fuction run clear the Database
     beforeEach(function(done) {
-        Models.Shoes.find({}, function(err) {
-            Models.Shoes.remove({}, function(err) {
+        Models.users.find({}, function(err) {
+            Models.users.remove({}, function(err) {
                 done(err);
             });
         });
     });
 
-    it('should add new shoes to MongoDB', function(done) {
-        var newShoe = {
-            id: 200,
-            color: 'Red',
-            brand: 'Asics',
-            price: 350,
-            in_stock: 10,
-            size: 3
+    it('should add new person to MongoDB database', function(done) {
+        var newPerson = {
+            name: 'John',
+            languages: 'English',
+            timesGreeted: 1
         }
 
-        Models.Shoes
-            .create(newShoe, function(err) {
-                Models.Shoes.find({}, function(err, shoes){
-                  assert.equal(1, shoes.length);
+        Models.users
+            .create(newPerson, function(err) {
+                Models.users.find({}, function(err, result){
+                  assert.equal(1, result.length);
                   done(err);
                 });
             });

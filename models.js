@@ -1,7 +1,12 @@
 const mongoose = require('mongoose');
 
-module.exports = function() {
+
+
+module.exports = function(url) {
+
   //Create mongoose Schema
+  mongoose.connect(url);
+  
   const userSchema = new mongoose.Schema({
   	name: {
   		type: String,

@@ -10,7 +10,6 @@ var greeting = "";
 var greet = require('./views/public/javascript/greet');
 var language = require('./views/public/javascript/language');
 var model = require('./models');
-var Models = model();
 
 var port = process.env.PORT || 4000;
 
@@ -36,8 +35,7 @@ var mongoose = require('mongoose');
 
 const mongoURL = process.env.MONGO_DB_URL || "mongodb://localhost/greeting_users";
 
-mongoose.connect(mongoURL);
-
+var Models = model(mongoURL);
 
 var numberUsers = 0;
 
@@ -62,7 +60,7 @@ app.get('/greetings/:name', function(req, res, next) {
 
 	Models.users.find({name: id}, function(err, data) {
 		if (err) throw err;
-		
+
 		thisName = data[0].name;
 
 		res.render('greeting', {language: thisLanguage, userName: thisName, counter: numberUsers});

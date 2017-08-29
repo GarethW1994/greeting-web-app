@@ -9,6 +9,8 @@ var greeting = "";
 //javascript modules
 var greet = require('./views/public/javascript/greet');
 var language = require('./views/public/javascript/language');
+var model = require('./models');
+var Models = model();
 
 var port = process.env.PORT || 4000;
 
@@ -32,41 +34,22 @@ app.use(bodyParser.urlencoded({extended: true}));
 //linking to mongo
 var mongoose = require('mongoose');
 
-const mongoURL = process.env.MONGO_DB_URL || "mongodb://GarethW:ninja12345@ds129281.mlab.com:29281/greeting_users";
+const mongoURL = process.env.MONGO_DB_URL || "mongodb://localhost/greeting_users";
 
 mongoose.connect(mongoURL);
 
-//Create mongoose Schema
-var userSchema = new mongoose.Schema({
-	name: {
-		type: String,
-		required: true
-	},
-	language: {
-		type: Object
-	},
-	timesGreeted: {
-	type: Number
-	}
-});
-
-userSchema.index({name: 1}, {unique: true});
-
-
-//Create mongoose model
-var users= mongoose.model('users', userSchema);
 
 var numberUsers = 0;
 
 app.get('/', function(req, res) {
-	users.find({}, function(err, data) {
+	Models.users.find({}, function(err, data) {
 		if (err) return err;
-		
+
 		numberUsers = data.length;
-			
+
 		res.render('index', {counter : numberUsers});
 	});
-	
+
 });
 
 
@@ -74,33 +57,33 @@ var thisLanguage = "";
 
 app.get('/greetings/:name', function(req, res, next) {
     var thisName = "";
-	
+
 	var id = req.params.name;
-	
-	users.find({name: id}, function(err, data) {
-		if (err) throw err;		
-	
+
+	Models.users.find({name: id}, function(err, data) {
+		if (err) throw err;
+		
 		thisName = data[0].name;
 
-		res.render('greeting', {language: thisLanguage, userName: thisName, counter: numberUsers});	
-	}); 
+		res.render('greeting', {language: thisLanguage, userName: thisName, counter: numberUsers});
+	});
 });
 
 
 app.get('/greeted', function(req, res, next) {
 	var names = [];
-	
-	users.find({}, function(err, data) {
+
+	Models.users.find({}, function(err, data) {
 		assert.equal(null, err);
-	
+
 		for (var i = 0; i < data.length; i++) {
-			names.push(data[i].name);	
+			names.push(data[i].name);
 		}
-		
+
 		//var counter  = findUsers();
-		
-		
-		//res.render('./greetedList', homeData.content); 
+
+
+		//res.render('./greetedList', homeData.content);
 		res.render('./greetedList', {output: names, counter: numberUsers});
 	});
 });
@@ -111,43 +94,41 @@ app.post('/submit', function(req, res, next) {
 	var radio = req.body.language;
 	var lang = language(radio);
 	var languages = [];
-	
+
 	thisLanguage = lang;
 
-			var user = users({
+			var user = Models.users({
 				name: userName,
 				language: radio,
 				timesGreeted: 1
 			}).save( function(err) {
-			
+
 				if (err) {
-					users.find({name: userName}, function(err, data) {
+					Models.users.find({name: userName}, function(err, data) {
 						if (err) {return err};
-			
-						
-			users.update({name: data[0].name}, {timesGreeted: data[0].timesGreeted + 1}, function(err, result) {
+
+
+			Models.users.update({name: data[0].name}, {timesGreeted: data[0].timesGreeted + 1}, function(err, result) {
 					if (err) return err;
-				
+
 					console.log(result);
 					});
 				});
-			
+
 			next(err);
 		}
 	});
-	
 
 	res.redirect('/greetings/' + userName);
-});   
+});
 
 
 
 
 app.get('/counter/:name', function(req, res, next){
-    var thisName = req.params.name;
-  
-	
-	users.find({name: thisName}, function(err, data) {
+  var thisName = req.params.name;
+
+	Models.users.find({name: thisName}, function(err, data) {
    		if (err) {return err};
 		res.render('counter', {userName: data[0].name, counter: data[0].timesGreeted})
 	});
@@ -155,13 +136,13 @@ app.get('/counter/:name', function(req, res, next){
 
 
 app.get('/deleteUsers', function(req, res, next) {
-	users.remove({}, function(err, result) {
+	Models.users.remove({}, function(err, result) {
 		if (err) return err;
 	});
-	
+
 	res.redirect('/');
 });
 
 app.listen(port, function() {
-   console.log('frontend server running at http://greeting-web-app:'+ port + '/'); 
+   console.log('frontend server running at http://greeting-web-app:'+ port + '/');
 });
